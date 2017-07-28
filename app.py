@@ -43,17 +43,24 @@ def makeWebhookResult(req):
     parameters = result.get("parameters")#invocar el parameters dentro de result
     atractivos = parameters.get("atractivos")#DATO TRAÍDO DE API.AI - ATRACTIVOS
     keyword = parameters.get("keyword")#DATO TRAÍDO DE API.AI - ATRACTIVOS
-
+    
 
     #URL BASE CONSULTA ATRACTIVOS JSON 1ra posicion
     baseUrlAtractivos = "http://situr.boyaca.gov.co/wp-json/wp/v2/atractivo_turistico?offset=0&search="#URL Base Atractivos
+    baseUrlImgAtract = "http://www.situr.boyaca.gov.co/wp-json/wp/v2/media/"#URL Base Imagenes Atractivos
     retirarEspacios = atractivos.replace(" ",  "%20")#Retirar Espacios Atractivos
 
     leerAtractivo = json.loads(urlopen(baseUrlAtractivos + retirarEspacios).read())
     tituloAtractivo = leerAtractivo[0]['title']['rendered']
     descripcionAtractivo = re.sub("<.*?>", "", leerAtractivo[0]['excerpt']['rendered'])
+    urlAtractivo = leerAtractivo[0].get('link')
+    idImagenAtractivo = str(leerAtractivo[0]['featured_media'])
 
-    speech = tituloAtractivo
+    leerImagenAtr = json.loads(urlopen(baseUrlImgAtract + idImagenAtractivo).read())
+    imagenAtractivo = leerImagenAtr['media_details']['sizes']['medium']['source_url']
+
+    speech = "El atractivo: " + tituloAtractivo
+
 
 
 #    url = "http://situr.boyaca.gov.co/wp-json/wp/v2/atractivo_turistico?orderby=relevance&orderby=relevance&offset=0&search=laguna%20negra"+keyword
