@@ -47,7 +47,7 @@ def makeWebhookResult(req):
     keyword = parameters.get("keyword")#DATO TRAÍDO DE API.AI - ATRACTIVOS
 
 
-    url = "http://situr.boyaca.gov.co/wp-json/wp/v2/atractivo_turistico?orderby=relevance&orderby=relevance&offset=0&search="+keyword
+    url = "http://situr.boyaca.gov.co/wp-json/wp/v2/atractivo_turistico?orderby=relevance&orderby=relevance&offset=0&search=laguna%20negra"
     response = urllib.urlopen(url)
     content = response.read()
     data = json.loads(content.decode("utf8"))
@@ -65,7 +65,9 @@ def makeWebhookResult(req):
     dato10= data[10]['title']['rendered']
 
     speech = dato1+" . "+dato2
-    
+
+    print(speech)
+        
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
 
