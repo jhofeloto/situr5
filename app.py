@@ -47,26 +47,37 @@ def makeWebhookResult(req):
     keyword = parameters.get("keyword")#DATO TRAÍDO DE API.AI - ATRACTIVOS
 
 
-    url = "http://situr.boyaca.gov.co/wp-json/wp/v2/atractivo_turistico?orderby=relevance&orderby=relevance&offset=0&search=laguna%20negra"
-    response = urllib.urlopen(url)
-    content = response.read()
-    data = json.loads(content.decode("utf8"))
+    #URL BASE CONSULTA ATRACTIVOS JSON 1ra posicion
+    baseUrlAtractivos = "http://situr.boyaca.gov.co/wp-json/wp/v2/atractivo_turistico?offset=0&search="#URL Base Atractivos
+    retirarEspacios = atractivos.replace(" ",  "%20")#Retirar Espacios Atractivos
 
-    #print(data)
-    dato1= data[1]['title']['rendered']
-    dato2= data[2]['title']['rendered']
-    dato3= data[3]['title']['rendered']
-    dato4= data[4]['title']['rendered']
-    dato5= data[5]['title']['rendered']
-    dato6= data[6]['title']['rendered']
-    dato7= data[7]['title']['rendered']
-    dato8= data[8]['title']['rendered']
-    dato9= data[9]['title']['rendered']
-    dato10= data[10]['title']['rendered']
+    leerAtractivo = json.loads(urlopen(baseUrlAtractivos + retirarEspacios).read())
+    tituloAtractivo = leerAtractivo[0]['title']['rendered']
+    descripcionAtractivo = re.sub("<.*?>", "", leerAtractivo[0]['excerpt']['rendered'])
 
     speech = dato1+" . "+dato2
 
     print(speech)
+
+
+
+#    url = "http://situr.boyaca.gov.co/wp-json/wp/v2/atractivo_turistico?orderby=relevance&orderby=relevance&offset=0&search=laguna%20negra"+keyword
+#    response = urllib.urlopen(url)
+#    content = response.read()
+#    data = json.loads(content.decode("utf8"))
+
+    #print(data)
+#    dato1= data[1]['title']['rendered']
+#    dato2= data[2]['title']['rendered']
+#    dato3= data[3]['title']['rendered']
+#    dato4= data[4]['title']['rendered']
+#    dato5= data[5]['title']['rendered']
+#    dato6= data[6]['title']['rendered']
+#    dato7= data[7]['title']['rendered']
+#    dato8= data[8]['title']['rendered']
+#    dato9= data[9]['title']['rendered']
+#    dato10= data[10]['title']['rendered']
+
         
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
