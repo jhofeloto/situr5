@@ -17,8 +17,6 @@ from flask import Flask
 from flask import request
 from flask import make_response
 
-import urllib
-
 # Flask app should start in global layout
 app = Flask(__name__)
 
@@ -56,9 +54,6 @@ def makeWebhookResult(req):
     descripcionAtractivo = re.sub("<.*?>", "", leerAtractivo[0]['excerpt']['rendered'])
 
     speech = tituloAtractivo
-
-    print(speech)
-
 
 
 #    url = "http://situr.boyaca.gov.co/wp-json/wp/v2/atractivo_turistico?orderby=relevance&orderby=relevance&offset=0&search=laguna%20negra"+keyword
