@@ -42,8 +42,6 @@ def makeWebhookResult(req):
     result = req.get("result")#invocar el result del json
     parameters = result.get("parameters")#invocar el parameters dentro de result
     atractivos = parameters.get("atractivos")#DATO TRAÍDO DE API.AI - ATRACTIVOS
-    keyword = parameters.get("keyword")#DATO TRAÍDO DE API.AI - ATRACTIVOS
-    
 
     #URL BASE CONSULTA ATRACTIVOS JSON 1ra posicion
     baseUrlAtractivos = "http://situr.boyaca.gov.co/wp-json/wp/v2/atractivo_turistico?offset=0&search="#URL Base Atractivos
@@ -59,8 +57,9 @@ def makeWebhookResult(req):
     leerImagenAtr = json.loads(urlopen(baseUrlImgAtract + idImagenAtractivo).read())
     imagenAtractivo = leerImagenAtr['media_details']['sizes']['medium']['source_url']
 
-    speech = "El atractivo: " + tituloAtractivo
 
+
+    speech = "El atractivo: " + tituloAtractivo + ". Descripción:" + descripcionAtractivo + "    y la url de la imagen es: " + imagenAtractivo
 
 
 #    url = "http://situr.boyaca.gov.co/wp-json/wp/v2/atractivo_turistico?orderby=relevance&orderby=relevance&offset=0&search=laguna%20negra"+keyword
