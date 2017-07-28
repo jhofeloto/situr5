@@ -55,7 +55,7 @@ def makeWebhookResult(req):
     tituloAtractivo = leerAtractivo[0]['title']['rendered']
     descripcionAtractivo = re.sub("<.*?>", "", leerAtractivo[0]['excerpt']['rendered'])
 
-    speech = dato1+" . "+dato2
+    speech = tituloAtractivo
 
     print(speech)
 
